@@ -1,16 +1,18 @@
 ---
+  
+  - name: Lynis | add repo
+    copy:
+      src: lynis.repo
+      dst: /etc/yum.repos.d/
+      owner: root
+      group: root
+      mode: '0655'   
 
   - name: Lynis | install
     yum:
       name: lynis
-      enablerepo: epel
-      skip_broken: yes
       update_cache: yes
       state: latest
-
-  - name: Lynis | update
-    shell:
-      cmd: lynis update    
 
   - name: Lynis | pentest
     shell:
