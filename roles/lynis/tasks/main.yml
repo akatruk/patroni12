@@ -25,4 +25,4 @@
 
   - debug:
       var: grep_output.stdout_lines
-    when: grep_output.stdout != "    
+    when: grep_output.stdout != ""  
