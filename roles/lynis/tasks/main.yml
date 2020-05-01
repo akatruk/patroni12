@@ -3,6 +3,7 @@
   - name: Lynis | install
     yum:
       name: lynis
+      enablerepo: epel
       state: latest
 
   - name: Lynis | update
