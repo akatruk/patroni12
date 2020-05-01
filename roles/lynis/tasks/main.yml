@@ -6,7 +6,7 @@
       dest: /etc/yum.repos.d/
       owner: root
       group: root
-      mode: '0655'   
+      mode: '0644'   
 
   - name: Lynis | install
     yum:
@@ -17,7 +17,6 @@
   - name: Lynis | pentest
     shell:
       cmd: lynis --pentest
-      creates: "{{ lynis_report }}"
 
   - name: Lynis | report suggestions
     shell: "grep 'suggestion' {{ lynis_report }}"
