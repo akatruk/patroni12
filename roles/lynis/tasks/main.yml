@@ -1,0 +1,24 @@
+---
+
+- name: Lynis | install
+  yum:
+    name: lynis
+    state: latest
+
+- name: Lynis | update
+  shell:
+    cmd: lynis update    
+
+- name: Lynis | pentest
+  shell:
+    cmd: lynis --pentest
+    creates: {{ lynis_report }}
+
+- name: Lynis | report suggestions
+  shell: "grep 'suggestion' {{ lynis_report }}"
+  register: grep_output
+  ignore_errors: true
+
+- debug:
+    var: grep_output.stdout_lines
+  when: grep_output.stdout != "    
