@@ -3,7 +3,7 @@
   - name: Lynis | add repo
     copy:
       src: lynis.repo
-      dst: /etc/yum.repos.d/
+      dest: /etc/yum.repos.d/
       owner: root
       group: root
       mode: '0655'   
