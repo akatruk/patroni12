@@ -12,7 +12,7 @@
   - name: Lynis | pentest
     shell:
       cmd: lynis --pentest
-      creates: {{ lynis_report }}
+      creates: "{{ lynis_report }}"
 
   - name: Lynis | report suggestions
     shell: "grep 'suggestion' {{ lynis_report }}"
