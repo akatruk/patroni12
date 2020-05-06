@@ -1,0 +1,6 @@
+
+[pgbarman01]
+pgbarman01 ansible_ssh_host=10.1.200.18
+
+[pgtest]
+pgtest ansible_ssh_host=10.1.200.22

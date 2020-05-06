@@ -1,0 +1,80 @@
+---
+# - name: Include all default extension files in vars/all and all nested directories and save the output in test. (2.2)
+#   include_vars: vars.yml
+
+- name: deploy vApp "{{ vm_name }}" and VM "{{ vm_name }}"
+  vcd_vapp: 
+    vm_name: "{{ item }}"
+    vapp_name: "{{ item }}"
+    template_name: "{{ source_template_name }}"
+    catalog_name: "{{ source_catalog_name }}"
+    vdc: "LifeStyle-Platform"
+    power_on: False
+    ip_allocation_mode: "POOL"
+    storage_profile: "{{ storage_profile }}"
+    network_adapter_type: "VMXNET3"
+    state: "present"
+    deploy: false
+    network: "{{ network }}"
+  register: output
+  with_items: "{{ vm_name }}"
+
+- name: create vApp "{{ vm_name }}" and VM "{{ vm_name }}" output
+  debug:
+      msg: "{{ output }}"
+
+- name: modify "{{ vm_name }}" cpu vm
+  vcd_vapp_vm:
+    target_vm_name: "{{ item }}" 
+    target_vapp: "{{ item }}" 
+    target_vdc: "{{ target_vdc }}"
+    virtual_cpus: "{{ virtual_cpus }}"
+    cores_per_socket: 2
+    state: "update"
+  register: output
+  with_items: "{{ vm_name }}"
+
+- name: update vm  output
+  debug:
+    msg: "{{ output }}"
+
+- name: modify "{{ vm_name }}" memory vm
+  vcd_vapp_vm:
+    target_vm_name: "{{ item }}" 
+    target_vapp: "{{ item }}" 
+    target_vdc: "{{ target_vdc }}"
+    memory: "{{ memory }}"
+    state: "update"
+  register: output
+  with_items: "{{ vm_name }}" 
+
+- name: update vm output
+  debug:
+    msg: "{{ output }}"
+
+- name: create vm disk "{{ vm_name }}"
+  vcd_vapp_vm_disk:
+    vm_name: "{{ item }}"  
+    vapp: "{{ item }}"  
+    vdc: "{{ target_vdc }}"
+    size: "{{ Additional_Disk_Size }}"
+    state: "present"
+  register: output
+  with_items: "{{ vm_name }}" 
+
+- name: create disk output
+  debug:
+    msg: '{{ output }}'
+
+- name: power on vm "{{ vm_name }}"  
+  vcd_vapp_vm:
+    target_vm_name: "{{ item }}" 
+    target_vapp: "{{ item }}" 
+    target_vdc: "{{ target_vdc }}"
+    operation: "poweron"
+  register: output
+  with_items: "{{ vm_name }}" 
+
+- name: power on vm "{{ vm_name }}"  
+  debug:
+    msg: "{{ output }}"

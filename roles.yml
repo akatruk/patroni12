@@ -1,0 +1,15 @@
+---
+
+- name: Install PostgreSQL patroni
+  hosts: pgtest
+  become: yes
+
+
+  roles:
+    #  - equipping
+    #  - etcd
+    #  - postgresql
+    #  - haproxy
+    #  - keepalived
+     - barman_client
+    #  - barman_server
