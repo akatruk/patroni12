@@ -1,0 +1,16 @@
+# Copyright © 2018 VMware, Inc. All Rights Reserved.
+# SPDX-License-Identifier: BSD-2-Clause OR GPL-3.0-only
+---
+
+- name: vCloudDirectorAnsible
+  hosts: localhost
+  environment:
+    env_user: katruk@lsp.team
+    env_password: zxc@123$%
+    env_host: https://vcd.technoserv.cloud/
+    env_org: 10000581-LifeStyle-Platform
+    env_api_version: 30.0
+    env_verify_ssl_certs: true
+  roles:
+     - del_vappvm
+    #  - vappvm_loop
