@@ -1,1 +1,2 @@
-
+[pg_test]
+pg_test01 ansible_ssh_host=10.10.3.2

@@ -11,5 +11,7 @@
     #  - postgresql
     #  - haproxy
     #  - keepalived
-     - barman_client
+    #  - barman_client
     #  - barman_server
+     - postgresql_standalone
+    #  - pci_dss
