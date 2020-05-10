@@ -1,8 +1,5 @@
 ---
 
-- name: Include all default extension files in vars/all and all nested directories and save the output in test. (2.2)
-  include_vars: vars.yml
-
 - name: Check and Print Linux version
   debug: var=ansible_os_family
 
@@ -22,31 +19,31 @@
 - name: Install PostgreSQL
   yum: name={{ item }} state=latest
   with_items:
-    - postgresql11
-    - postgresql11-server
-    - postgresql11-contrib
+    - postgresql12
+    - postgresql12-server
+    - postgresql12-contrib
 
 - name: Install cluster PostgreSQL
-  command: /usr/pgsql-11/bin/initdb -D /var/lib/pgsql/{{ env_type }}/{{ project_name }}/data 
+  command: /usr/pgsql-12/bin/initdb -D /var/lib/pgsql/{{ env_type }}/{{ project_name }}/data 
   become: true
   become_user: postgres
 
-- name: Change startup config postgresql-11.service
+- name: Change startup config postgresql-12.service
   lineinfile: 
-    path: /lib/systemd/system/postgresql-11.service
+    path: /lib/systemd/system/postgresql-12.service
     regexp: '^Environment=PGDATA='
     line: 'Environment=PGDATA=/var/lib/pgsql/{{ env_type }}/{{ project_name }}/data'
 
 - name: Add PGDATA variable in profile postgres user
   lineinfile:
     path: /home/postgres/.bashrc
-    line: 'export PATH=/usr/pgsql-11/bin:\$PATH'
+    line: 'export PATH=/usr/pgsql-12/bin:\$PATH'
 
 - name: Add PGDATA variable in profile postgres user
   lineinfile:
     path: /home/postgres/.bashrc
     regexp: '^export PATH'
-    line: 'PATH=$PATH:/usr/pgsql-11/bin/'
+    line: 'PATH=$PATH:/usr/pgsql-12/bin/'
 
 - name: Add PGDATA variable in profile postgres user
   lineinfile:
@@ -82,7 +79,7 @@
     line: 'host all all 0.0.0.0/0 md5'
 
 - name: Start PostgreSQL and Enable as service
-  service: name=postgresql-11.service state=started enabled=yes
+  service: name=postgresql-12.service state=started enabled=yes
 
 - name: open firewall
   shell: firewall-cmd --permanent --add-port=5432/tcp

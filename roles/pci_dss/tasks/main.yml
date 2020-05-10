@@ -7,8 +7,48 @@
     # Настроить механизм регистрации действий пользователей и администраторов.
     # Настроить механизм шифрования не консольного административного и пользовательского доступа.
 
- - name: upgrade all packages
-   yum:
-      name: postgresql-12
-      state: latest
-   
+- name: create lspadmin in database
+  postgresql_query:
+    db: postgres
+    login_user: postgres
+    login_password: Vfhnvfhn123
+    query: "create user lspadmin createrole superuser createdb replication encrypted password '{{ lspadmin_password }}';"
+    
+- name: disable postgres user
+  postgresql_query:
+    db: postgres
+    login_user: lspadmin
+    login_password: "{{ lspadmin_password }}"
+    query: 'ALTER USER postgres WITH NOLOGIN;'
+
+- name: Установить все последние обновления безопасности
+  yum:
+    name: '*'
+    security: yes
+    state: latest
+
+- name: pg_hba.conf md5
+  blockinfile:
+    path: /var/lib/pgsql/12/data/pg_hba.conf
+    block: |
+        host all all 0.0.0.0/0 md5
+
+- name: логирование событий
+  blockinfile:
+     path: /var/lib/pgsql/12/data/postgresql.conf
+     block: |
+        log_destination=syslog
+        logging_collector=off
+        syslog_facility = 'LOCAL0'
+        syslog_ident = 'postgres'
+        debug_pretty_print = on
+        log_statement = 'all'
+        log_connections = on
+        log_disconnections = on
+        log_min_messages=INFO
+        log_min_error_statement=INFO
+
+- name: restart postgres
+  service:
+    name: postgresql-12.service
+    state: restarted
