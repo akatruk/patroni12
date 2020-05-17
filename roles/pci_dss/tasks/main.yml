@@ -6,36 +6,36 @@
     # Настроить привилегии доступа административных учетных записей и учетных записей пользователей.
     # Настроить механизм регистрации действий пользователей и администраторов.
     # Настроить механизм шифрования не консольного административного и пользовательского доступа.
+    # create user lspadmin createrole superuser createdb replication encrypted password 'Cdgbcdgb1@3';
 
-- name: create lspadmin in database
-  postgresql_query:
-    db: postgres
-    login_user: postgres
-    login_password: Vfhnvfhn123
-    query: "create user lspadmin createrole superuser createdb replication encrypted password '{{ lspadmin_password }}';"
-    
-- name: disable postgres user
-  postgresql_query:
-    db: postgres
-    login_user: lspadmin
-    login_password: "{{ lspadmin_password }}"
-    query: 'ALTER USER postgres WITH NOLOGIN;'
+    # - name: create lspadmin in database
+#   postgresql_query:
+#     db: postgres
+#     login_user: postgres
+#     login_password: Vfhnvfhn123
+#     query: "create user lspadmin createrole superuser createdb replication encrypted password '{{ lspadmin_password }}';"
 
-- name: Установить все последние обновления безопасности
-  yum:
-    name: '*'
-    security: yes
-    state: latest
+# - name: find and replcace    
+#   lineinfile:
+#     path: /var/lib/pgsql/12/data/pg_hba.conf
+#     regexp: '^host    all             all             127.0.0.1/32            trust'
+#     line: 'host    all             all             127.0.0.1/32            scram-sha-256'
 
-- name: pg_hba.conf md5
-  blockinfile:
-    path: /var/lib/pgsql/12/data/pg_hba.conf
-    block: |
-        host all all 0.0.0.0/0 md5
+# - name: Установить все последние обновления безопасности
+#   yum:
+#     name: '*'
+#     security: yes
+#     state: latest
+
+# # - name: pg_hba.conf md5
+# #   blockinfile:
+# #     path: /var/lib/pgsql/12/data/pg_hba.conf
+# #     block: |
+# #         host all all 0.0.0.0/0 md5
 
 - name: логирование событий
   blockinfile:
-     path: /var/lib/pgsql/12/data/postgresql.conf
+     path: /var/lib/pgsql/12/data/patronictl/postgresql.conf
      block: |
         log_destination=syslog
         logging_collector=off
@@ -47,8 +47,56 @@
         log_disconnections = on
         log_min_messages=INFO
         log_min_error_statement=INFO
+        password_encryption ='scram-sha-256'
 
 - name: restart postgres
   service:
     name: postgresql-12.service
     state: restarted
+
+# - name: Access from lsp office network
+#   postgresql_pg_hba:
+#     dest: /var/lib/pgsql/12/data/pg_hba.conf
+#     contype: host
+#     users: all
+#     source: 192.168.13.0/24
+#     databases: all
+#     method: cert
+
+
+alter system set log_destination=syslog;
+alter system set logging_collector=off;
+alter system set syslog_facility = 'LOCAL0';
+alter system set syslog_ident = 'postgres';
+alter system set debug_pretty_print = on;
+alter system set log_statement = 'all';
+alter system set log_connections = on;
+alter system set log_disconnections = on;
+alter system set log_min_messages=INFO;
+alter system set log_min_error_statement=INFO;
+alter system set password_encryption ='scram-sha-256';
+Create extension pgcrypto; 
+
+
+|M1K8SPLDB06|alter user lsp_cashback with password 'OPqUqWn0gzTMPB719uoYUS37+3R5kt43bzUlBaFL8nQ='; 
+
+|M1K8SPLDB07|alter user lsp_digitalbazaar with password 'N1j2YCpyWWoYk35hjm4jzC2ROsOPRvvPHljF9112Fnc=';
+|M1K8SPLDB02|alter user lsp_cinema with password 'se50ANLmXGtOcqgnmW/E8WfWLRTR13R2OZgb1dN7w1Y=';
+|M1K8SPLDB02|alter user lsp_cinema_demo with password 'couDY1fJZT8CHLNhnr8UYePiQ1vBFfe+v2Z2tjlVmOA=';
+|M1K8SPLDB03|alter user lsp_coupon with password 'oladN55EvVFtcjLwd1zlqbD3bxAjpfdnU86qLgBr8Rg=';
+|M1K8SPLDB04|alter user lsp_restaurants with password 'NyWVeva96NL7nGyvDcxg1oqNvLZq9gqHIB/NgklcVeM=';
+alter user lsp_api with password 'k476iT/ifFF63PvdfZEQW37ZWZ6jCvfAS4b4Vs5nGTA=';
+alter user lsp_auth with password '9s60qM2R2AMrlKrA7adqMN7nfCtZmwK4xd1nzzgxgN0=';
+alter user lsp_bank_history with password 'GTdnCk/jv++hyZ0dFieuoBAhl3AzvSOcCvNk16j7cGo=';
+alter user lsp_banking with password 'HBHcG32ypku5VCkn9qUovFQg2sXWaXeYlqAhIXH6K9A=';
+alter user lsp_banking_gateway with password 'XtmGoaiQpnbY3ZdXYJrJnQoV2kqOcZZiQ96UFRshEjI=';
+alter user lsp_config with password '1ApKPDsKPcV11u2G4/yZNUz+ma5X4nuIzNzzsAIlwfs=';
+alter user lsp_message_processing with password 'AqiOvgSZgjnfd9jkrwosTD8zqVgV1Dtg6YkF8asxWx8=';
+alter user lsp_notify with password 'EbBGnC2tvqTvm3/slPCBBd09h74kR/bq/NhcHoLK3rM=';
+alter user lsp_orders with password '8UoopuFiCrsNXKqv8UrMql7nK4eHWjtKxBWbnTkB0rM=';
+alter user lsp_payment with password 'DGlPHb9rTPnbGO5W8EPOhJjefAQNNEcBWPh53Fu95MA=';
+alter user lsp_push_gateway with password 'MyoT82grHNNjJkm51iwwBAZpW3noeYD724V6aBHY0MI=';
+alter user lsp_service_manager with password '6iXum70RJv8Q6foaGJuKFwOsjgC6Xy3kcTLld5SnyTA=';
+alter user lsp_sms_gateway with password 'mg2+H+K3nW4dLCUZ2bTz3N4zFbvzdPpsEKkhkNHpHUw=';
+alter user lsp_user with password 'jgLUSFteS17PJNWRlKgWEuCp8IXMDpmyZdXScVMmI+Y=';
+|M1K8SPLDB05|alter user lsp_yclients with password 'dUWmYe2Ulxlen4JKm5Eqfyn3WsXCxTiXRNuSYpXGCyA=';

@@ -1,9 +1,9 @@
 ---
 
 - name: Install PostgreSQL patroni
-  hosts: pgtest
+  hosts: crm
+  remote_user: katruk
   become: yes
-
 
   roles:
     #  - equipping
@@ -13,5 +13,5 @@
     #  - keepalived
     #  - barman_client
     #  - barman_server
-     - postgresql_standalone
-    #  - pci_dss
+    #  - postgresql_standalone
+     - pci_dss

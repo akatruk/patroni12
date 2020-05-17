@@ -1,0 +1,17 @@
+---
+
+# - name: 2.14. Необходимо настроить механизм хранения паролей    
+#   lineinfile:
+#     path: /var/lib/pgsql/12/data/pg_hba.conf
+#     regexp: '^host    all             all             127.0.0.1/32            trust'
+#     line: 'host    all             all             127.0.0.1/32            md5'
+
+- name: 2.14. Необходимо настроить механизм хранения паролей
+  lineinfile:
+    path: /var/lib/pgsql/12/data/postgresql.conf
+    line: password_encryption ='scram-sha-256'
+
+- name: restart postgres
+  service:
+    name: postgresql-12.service
+    state: restarted

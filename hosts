@@ -1,2 +1,37 @@
-[pg_test]
-pg_test01 ansible_ssh_host=10.10.3.2
+[k8s-test]
+M1K8STLDB01 ansible_ssh_host=10.10.9.12
+M1K8STLDB02 ansible_ssh_host=10.10.9.13
+M1K8STLDB03 ansible_ssh_host=10.10.9.14
+M1K8STLDB04 ansible_ssh_host=10.10.9.15
+M1K8STLDB05 ansible_ssh_host=10.10.9.16
+M1K8STLDB06 ansible_ssh_host=10.10.9.17
+M1K8STLDB07 ansible_ssh_host=10.10.9.18
+
+[MDM]
+M1MDMPLDB01 ansible_ssh_host=10.10.11.101
+M1MDMPLDB02 ansible_ssh_host=10.10.11.102
+
+[PayControl]
+M1PACPLDB01 ansible_ssh_host=10.10.6.3
+
+[Loyalty]
+M1LOYPLDB01 ansible_ssh_host=10.10.7.23
+M1LOYPLDB02 ansible_ssh_host=10.10.7.24
+
+[k8s-prod]
+M1K8SPLDB01 ansible_ssh_host=10.10.11.2
+M1K8SPLDB02 ansible_ssh_host=10.10.11.3
+M1K8SPLDB03 ansible_ssh_host=10.10.11.4
+M1K8SPLDB04 ansible_ssh_host=10.10.11.5
+M1K8SPLDB05 ansible_ssh_host=10.10.11.6
+M1K8SPLDB06 ansible_ssh_host=10.10.11.7
+M1K8SPLDB07 ansible_ssh_host=10.10.11.8
+M1K8SDLDB01 ansible_ssh_host=10.10.9.2
+
+[pgtest]
+pgtest ansible_ssh_host=10.1.200.22
+
+[crm]
+M1CRMPLDB02 ansible_ssh_host=10.10.11.104
+M1CRMPLDB03 ansible_ssh_host=10.10.11.105
+M1CRMPLDB04 ansible_ssh_host=10.10.11.106

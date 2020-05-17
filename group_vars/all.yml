@@ -4,30 +4,30 @@
 lspadmin_password: Cdgbcdgb1@3
 
 # ===@@@!!!patroni vars!!!@@@===
-ansible_user            : root
+ansible_user            : katruk
 ansible_ssh_private_key : /Users/akatruk/.ssh/id_rsa.pub
 
-cname1: pg01
-ip_address1: 10.1.200.18
-cname2: pg02
-ip_address2: 10.1.200.22
-cname3: pg03
-ip_address3: 10.1.200.26
-virtual_ip: 10.1.200.205
-network_pg: '10.1.200.0/24'
-cluster_name: pg_cl
+cname1: M1CRMPLDB02
+ip_address1: 10.10.11.104
+cname2: M1CRMPLDB03
+ip_address2: 10.10.11.105
+cname3: M1CRMPLDB04
+ip_address3: 10.10.11.106
+virtual_ip: 10.10.11.110
+network_pg: '10.10.11.0/24'
+cluster_name: CRMDB
 
-hosts: 10.1.200.18:2379, 10.1.200.22:2379, 10.1.200.26:2379
+hosts: 10.10.11.104:2379, 10.10.11.105:2379, 10.10.11.106:2379
 patroni_scope: patroniscope
 
 # ===@@@!!!access to database as postgres user !!!@@@===
 password_postgres: 4wKwFfNEfeb4p67k
 
 # Posgres parameters
-patroni_pg_max_connections: 30
-shared_buffers: 512MB
-work_mem: 128MB
-effective_cash_size: 1536MB
+patroni_pg_max_connections: 100
+shared_buffers: 1GB
+work_mem: 10485kB
+effective_cash_size: 3GB
 
 # ====== vars VM deploy ======
 
