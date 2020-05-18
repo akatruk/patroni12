@@ -1,4 +1,5 @@
 ---
+  
   - name: log_timezone = 'UTC'
     lineinfile:
       path: /var/lib/pgsql/12/data/postgresql.conf
