@@ -2,7 +2,7 @@
   - name: log_timezone = 'UTC'
     lineinfile:
       path: /var/lib/pgsql/12/data/postgresql.conf
-      line: log_timezone = 'UTC'
+      line: timezone = 'UTC'
   
   - name: restart postgresql-12
     service:
