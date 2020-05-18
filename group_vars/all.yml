@@ -4,8 +4,8 @@
 lspadmin_password: Cdgbcdgb1@3
 
 # ===@@@!!!patroni vars!!!@@@===
-ansible_user            : katruk
-ansible_ssh_private_key : /Users/akatruk/.ssh/id_rsa.pub
+# ansible_user            : katruk
+# ansible_ssh_private_key : /Users/akatruk/.ssh/id_rsa.pub
 
 cname1: M1CRMPLDB02
 ip_address1: 10.10.11.104
