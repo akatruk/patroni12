@@ -4,7 +4,7 @@
       path: /var/lib/pgsql/12/data/postgresql.conf
       line: log_timezone = 'UTC'
   
-  - name: restart postgres
+  - name: restart postgresql
     service:
       name: postgresql-12.service
       state: restarted
