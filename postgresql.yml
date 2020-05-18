@@ -1,9 +1,7 @@
 ---
 
 - name: Install PostgreSQL patroni
-  hosts: crm
-  remote_user: katruk
-  become: yes
+  hosts: all
 
   roles:
     #  - equipping
@@ -14,4 +12,5 @@
     #  - barman_client
     #  - barman_server
     #  - postgresql_standalone
-     - pci_dss
+    #  - pci_dss
+       - timezone
