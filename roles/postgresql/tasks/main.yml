@@ -1,8 +1,5 @@
 ---
 
-# yum --enablerepo=extras install epel-release
-# dnf module disable postgresql
-
 - name: Install package with multiple repos enabled
   yum:
     name: epel-release

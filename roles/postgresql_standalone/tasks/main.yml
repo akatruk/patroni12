@@ -1,88 +1,77 @@
 ---
 
-- name: Check and Print Linux version
-  debug: var=ansible_os_family
-
-- name: Create user PostgreSQL
-  shell: useradd postgres
-
-- name: Make DIRs PostgreSQL
-  file:
-    path: /var/lib/pgsql/{{ env_type }}/{{ project_name }}/data
-    owner: postgres
-    group: postgres
-    state: directory
+- name: Add the user 'postgres' with a primary group of 'postgres'
+  user:
+    name: postgres
+    comment: postgres user
 
 - name: Install PosrgreSQL wget
-  yum: name=https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm state=present
+  yum: name=https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm state=present
+
+- name: Disable
+  command: dnf -qy module disable postgresql
 
 - name: Install PostgreSQL
-  yum: name={{ item }} state=latest
+  dnf: name={{ item }} state=latest
   with_items:
     - postgresql12
     - postgresql12-server
     - postgresql12-contrib
 
-- name: Install cluster PostgreSQL
-  command: /usr/pgsql-12/bin/initdb -D /var/lib/pgsql/{{ env_type }}/{{ project_name }}/data 
+- name: remove old PostgreSQL
+  command: rm -rf /var/lib/pgsql/
   become: true
-  become_user: postgres
 
-- name: Change startup config postgresql-12.service
-  lineinfile: 
-    path: /lib/systemd/system/postgresql-12.service
-    regexp: '^Environment=PGDATA='
-    line: 'Environment=PGDATA=/var/lib/pgsql/{{ env_type }}/{{ project_name }}/data'
+- name: Install cluster PostgreSQL
+  command: /usr/pgsql-12/bin/postgresql-12-setup initdb
+  become: true
 
-- name: Add PGDATA variable in profile postgres user
-  lineinfile:
-    path: /home/postgres/.bashrc
-    line: 'export PATH=/usr/pgsql-12/bin:\$PATH'
+- name: enable cluster PostgreSQL
+  command: systemctl enable postgresql-12
+  become: true
 
-- name: Add PGDATA variable in profile postgres user
-  lineinfile:
-    path: /home/postgres/.bashrc
-    regexp: '^export PATH'
-    line: 'PATH=$PATH:/usr/pgsql-12/bin/'
+- name: start cluster PostgreSQL
+  command: systemctl start postgresql-12
+  become: true
 
-- name: Add PGDATA variable in profile postgres user
-  lineinfile:
-    path: /home/postgres/.bashrc
-    line: 'export PGDATA=/var/lib/pgsql/{{ env_type }}/{{ project_name }}/data'    
+- name: логирование событий
+  blockinfile:
+     path: /var/lib/pgsql/12/data/postgresql.conf
+     block: |
+        log_destination=syslog
+        logging_collector=off
+        syslog_facility = 'LOCAL0'
+        syslog_ident = 'postgres'
+        debug_pretty_print = on
+        log_statement = 'all'
+        log_connections = on
+        log_disconnections = on
+        log_min_messages=INFO
+        log_min_error_statement=INFO
+        password_encryption ='scram-sha-256'
+        listen_addresses = '*'
 
-- name: Change shared_buffer
-  lineinfile:
-    path: /var/lib/pgsql/{{ env_type }}/{{ project_name }}/data/postgresql.conf
-    regexp: '^shared_buffers'
-    line: 'shared_buffers= {{ shared_buffer }}'
+- name: pg_hba sha256
+  blockinfile:
+      path: /var/lib/pgsql/12/data/pg_hba.conf
+      block: |
+        host    all             all             10.11.251.0/24          scram-sha-256
+        host    all             all             192.168.13.0/24         scram-sha-256
+        host    all             all             192.168.160.0/24        scram-sha-256
+        host    all             all             10.11.3.11/32           scram-sha-256
+        host    all             backup          10.10.1.130/24          trust
+        local   replication     backup                                  peer
+        host    replication     all             127.0.0.1/32            ident
+        host    replication     all             ::1/128                 ident
 
-- name: Change work_mem
-  lineinfile:
-    path: /var/lib/pgsql/{{ env_type }}/{{ project_name }}/data/postgresql.conf
-    regexp: '^work_mem'
-    line: 'work_mem= {{ work_mem }}'
-
-- name: Change effective_cache_size
-  lineinfile:
-    path: /var/lib/pgsql/{{ env_type }}/{{ project_name }}/data/postgresql.conf
-    regexp: '^effective_cache_size'
-    line: 'effective_cache_size= {{ effective_cache_size }}'
-
-- name: Change listen_addresses
-  lineinfile:
-    path: /var/lib/pgsql/{{ env_type }}/{{ project_name }}/data/postgresql.conf
-    line: "listen_addresses='*'"
-
-- name: add allow md5 to pg_hba.conf
-  lineinfile:
-    path: /var/lib/pgsql/{{ env_type }}/{{ project_name }}/data/pg_hba.conf
-    line: 'host all all 0.0.0.0/0 md5'
-
-- name: Start PostgreSQL and Enable as service
-  service: name=postgresql-12.service state=started enabled=yes
-
+      
 - name: open firewall
   shell: firewall-cmd --permanent --add-port=5432/tcp
-
+   
 - name: reload firewall
   shell: firewall-cmd --reload
+
+- name: restart postgres
+  service:
+    name: postgresql-12.service
+    state: restarted
