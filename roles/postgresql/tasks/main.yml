@@ -1,75 +1,95 @@
 ---
 
-- name: Install package with multiple repos enabled
-  yum:
-    name: epel-release
-    state: latest
+  - name: Install package with multiple repos enabled
+    yum:
+      name: epel-release
+      state: latest
+  
+  - name: Download PosrgreSQL wget
+    yum: 
+      name: https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm 
+      state: present
+  
+  - name: disabled postgres
+    command: dnf -qy module disable postgresql    
 
-- name: Install PostgreSQL & python
-  yum: name={{ item }} state=latest
-  with_items:
-    - postgresql12
-    - postgresql12-server
-    - postgresql12-contrib
-    - git
-    - python3-pip
-    - python3-psycopg2
-    - gcc
-    - python3
-    - python3-devel
-    - etcd
+  - name: Install PostgreSQL & python
+    dnf: name={{ item }} state=latest
+    with_items:
+      - postgresql12
+      - postgresql12-server
+      - postgresql12-contrib
+      - git
+      - python3-pip
+      - python3-psycopg2
+      - gcc
+      - python36
+      - python36-devel
 
-- name: checkout patroni
-  git: repo=https://github.com/zalando/patroni.git dest=/opt/patroni
+  - name: checkout patroni
+    git: 
+      repo: https://github.com/zalando/patroni.git 
+      dest: /opt/patroni
+  
+  - name: create /etc/patroni
+    file: state=directory dest=/etc/patroni
+  
+  - name: put postgres.yml
+    template: src=postgres0.yml dest=/etc/patroni/postgres.yml backup=yes
+  
+  - name: pip update
+    command: pip3 install --upgrade pip
+  
+  - name: install python packages
+    pip: name={{ item }}
+    with_items:
+      - python-etcd
+      - python-consul
+      - boto
+      - mock
+      - kazoo
+      - click
+      - tzlocal
+      - prettytable
+      - PyYAML
+      - python-dateutil
+      - psutil
+      - patroni
+      - asn1crypto
+      - attrs
+      - Automat
+      - blinker
+      - colorama
+      - constantly
+      - cryptography
+      - zipp
+      - wcwidth
+      - psycopg2-binary
+      - py
 
-- name: create /etc/patroni
-  file: state=directory dest=/etc/patroni
+  - name: Create a symbolic link python3.6
+    file:
+      src: /usr/bin/python3.6
+      dest: /usr/bin/python
+      owner: postgres
+      group: postgres
+      state: link
 
-- name: put postgres.yml
-  template: src=postgres0.yml dest=/etc/patroni/postgres.yml backup=yes
+  - name: cp patronictl
+    command: cp /usr/local/bin/patronictl /usr/bin/
 
-- name: install python packages
-  pip: name={{ item }}
-  with_items:
-    - virtualenv
-    - python-etcd
-    - python-consul
-    - boto
-    - mock
-    - kazoo
-    - click
-    - tzlocal
-    - prettytable
-    - PyYAML
-    - python-dateutil
-    - psutil
-    - patroni
-    - asn1crypto
-    - attrs
-    - Automat
-    - blinker
-    - colorama
-    - constantly
-    - cryptography
-    - zipp
-    - wcwidth
-    - psycopg2-binary
-    - py
+  - name: cp patronictl
+    command: cp /usr/local/bin/patroni /usr/bin/
 
-- name: put patroni.service systemd unit
-  template: src=patroni.service dest=/etc/systemd/system/patroni.service backup=yes
-
-- name: Start etcd and Enable as service
-  service: name=etcd.service state=started enabled=yes
-
-- name: Reload daemon definitions
-  command: systemctl daemon-reload
-
-- name: ln python3.6
-  command: ln -s /usr/bin/python3.6 /usr/bin/python
-
-- name: ln patronictl
-  command: ln -s /usr/local/bin/patronictl /usr/bin/patronictl
-
-- name: restart
-  service: name=patroni state=restarted enabled=yes
+  - name: put patroni.service systemd unit
+    template: src=patroni.service dest=/etc/systemd/system/patroni.service backup=yes
+  
+  - name: Start etcd and Enable as service
+    service: name=etcd.service state=started enabled=yes
+  
+  - name: Reload daemon definitions
+    command: /usr/bin/systemctl daemon-reload
+  
+  - name: restart
+    service: name=patroni state=restarted enabled=yes
+  

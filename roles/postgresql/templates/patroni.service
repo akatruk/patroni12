@@ -2,7 +2,7 @@
 Description=Patroni Service
 
 [Service]
-Environment="PATH=/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin/python3.6:{{ patroni_pg_path }}"
+Environment="PATH=/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/usr/bin/python3.6:{{ patroni_pg_path }}"
 User=postgres
 Group=postgres
 ExecStart=/opt/patroni/patroni.py /etc/patroni/postgres.yml

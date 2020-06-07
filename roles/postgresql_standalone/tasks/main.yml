@@ -64,7 +64,13 @@
         host    replication     all             127.0.0.1/32            ident
         host    replication     all             ::1/128                 ident
 
+# - name: Change effective_cache_size
+#   lineinfile:
+#         path: /var/lib/pgsql/{{ env_type }}/{{ project_name }}/data/postgresql.conf
+#         regexp: '^effective_cache_size'
+#         line: 'effective_cache_size= {{ effective_cache_size }}'
       
+
 - name: open firewall
   shell: firewall-cmd --permanent --add-port=5432/tcp
    

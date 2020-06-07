@@ -1,9 +1,0 @@
----
-  
-- name: Ansible | add user to sudoers
-    copy:
-    src: ansible_no_pass
-    dest: /etc/sudoers.d/
-    owner: root
-    group: root
-    mode: '0644'   

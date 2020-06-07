@@ -1,0 +1,14 @@
+alter system set log_destination=syslog;
+alter system set logging_collector=off;
+alter system set syslog_facility = 'LOCAL0';
+alter system set syslog_ident = 'postgres';
+alter system set debug_pretty_print = on;
+alter system set log_statement = 'all';
+alter system set log_connections = on;
+alter system set log_disconnections = on;
+alter system set log_min_messages=INFO;
+alter system set log_min_error_statement=INFO;
+alter system set password_encryption ='scram-sha-256';
+create extension pgcrypto;
+alter role postgres with encrypted password '{{ password_postgres }}';
+alter role admin with encrypted password '{{ password_postgres }}';

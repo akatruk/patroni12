@@ -1,7 +1,7 @@
 ---
 
 - name: Install PostgreSQL patroni
-  hosts: pg
+  hosts: patroni
   become: yes
 
   roles:
@@ -10,8 +10,9 @@
     #  - postgresql
     #  - haproxy
     #  - keepalived
+     - pci
     #  - barman_client
     #  - barman_server
-     - postgresql_standalone
+    #  - postgresql_standalone
     #  - pci_dss
     #  - timezone

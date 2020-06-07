@@ -7,6 +7,7 @@ restapi:
   connect_address: {{ ansible_default_ipv4.address }}:8008
 
 etcd:
+  # hosts: {{cname1}}:2379, {{cname2}}:2379, {{cname3}}:2379
   hosts: {{ hosts }}
 
 bootstrap:
@@ -44,7 +45,7 @@ bootstrap:
   
   users:
     admin:
-      password: postgres
+      password: {{password_postgres}}
       options:
         - createrole
         - createdb

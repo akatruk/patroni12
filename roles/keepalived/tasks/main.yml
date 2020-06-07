@@ -9,3 +9,6 @@
 - name: restart and enable
   service: name=keepalived state=restarted enabled=yes
 
+# - name: pause
+#   pause:
+#     seconds: 20
