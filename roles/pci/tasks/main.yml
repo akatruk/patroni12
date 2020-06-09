@@ -29,23 +29,23 @@
     regexp: '^(.*)host all all 0.0.0.0/0 md5(.*)$' 
     line: 'host all all 0.0.0.0/0 scram-sha-256'
 
+- name: restart patroni
+  service:
+    name: patroni.service
+    state: restarted
+  
 # - name: add hosts to pg_hba.conf
 
 # - name: change password to SHA256
-#   shell: PGPASSWORD={{ password_postgres }} psql postgres -U postgres -h {{ virtual_ip }} -p 5000 -c "alter role postgres with encrypted password '{{ password_postgres }}';"
+#   shell: PGPASSWORD={{ password_postgres }} psql postgres -U postgres -h {{virtual_ip}} -p 5000 -c "alter role postgres with encrypted password '{{ password_postgres }}';"
 #   become_user: postgres
-#   when: inventory_hostname == cname1
+#   when: inventory_hostname == pci_dss_active_node
 
 # - name: change password to SHA256
-#   shell: PGPASSWORD={{ password_postgres }} psql postgres -U postgres -h {{ virtual_ip }} -p 5000 -c "alter role admin with encrypted password '{{ password_postgres }}';"
+#   shell: PGPASSWORD={{ password_postgres }} psql postgres -U postgres -h {{virtual_ip}} -p 5000 -c "alter role admin with encrypted password '{{ password_postgres }}';"
 #   become_user: postgres
-#   when: inventory_hostname == cname1
+#   when: inventory_hostname == pci_dss_active_node
 
-- name: restart patroni
-  service:
-   name: patroni.service
-   state: restarted
-
-- name: Unconditionally reboot the machine with all defaults
-  reboot:
+# - name: Unconditionally reboot the machine with all defaults
+#   reboot:
 

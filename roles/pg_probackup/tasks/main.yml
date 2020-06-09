@@ -1,0 +1,88 @@
+---
+
+ - name: add repo pg_probackup
+   shell: rpm -ivh https://repo.postgrespro.ru/pg_probackup/keys/pg_probackup-repo-centos.noarch.rpm
+
+ - name: install pg_probackup
+   yum: name=pg_probackup-12 state=latest
+
+ - name: install pg_probackup debuginfo
+   yum: name=pg_probackup-12-debuginfo state=latest
+
+ - name: make user with password
+   user:
+    name: backup
+    # generate_ssh_key: yes
+    # ssh_key_bits: 2048
+    # ssh_key_file: .ssh/id_rsa
+
+ - name: create directory
+   file:
+    path: /home/postgres/.ssh/
+    state: directory
+    mode: u+rwx
+    owner: postgres
+    group: postgres
+ 
+ - name: copy file id_rsa
+   template:
+    src: id_rsa.j2
+    dest: /home/postgres/.ssh/id_rsa
+    owner: postgres
+    group: postgres
+    mode: 0600
+  
+ - name: copy file id_rsa.pub
+   template:
+    src: id_rsa.pub.j2
+    dest: /home/postgres/.ssh/id_rsa.pub
+    owner: postgres
+    group: postgres
+    mode: 0644
+
+ - name: copy file known_hosts
+   template:
+    src: known_hosts.j2
+    dest: /home/postgres/.ssh/known_hosts
+    owner: postgres
+    group: postgres
+    mode: 0644
+
+ - name: find and replcace in /var/lib/pgsql/12/data/patronictl/pg_hba.conf
+   lineinfile:
+    path: /var/lib/pgsql/12/data/patronictl/pg_hba.conf
+    regexp: '^(.*)local   replication     all                                     trust(.*)$' 
+    line: 'local   replication     backup                                     peer'
+
+ - name: Add a line to a file if the file does not exist, without passing regexp
+   lineinfile:
+    path: /var/lib/pgsql/12/data/patronictl/pg_hba.conf
+    line: host    replication     backup        10.10.1.130/24            scram-sha-256
+    create: yes
+
+ - name: Add a line to a file if the file does not exist, without passing regexp
+   lineinfile:
+    path: /var/lib/pgsql/12/data/patronictl/pg_hba.conf
+    line: host    replication     backup         10.10.1.130/24           scram-sha-256
+    create: yes
+
+ - name: copy script
+   template: 
+    src: backup_user.sql.j2
+    dest: /tmp/backup_user.sql
+    backup: yes
+   when: inventory_hostname == pci_dss_active_node
+
+ - name: add backup user
+   shell: PGPASSWORD={{ password_postgres }} psql postgres -U postgres -h {{ virtual_ip }} -p 5000 -a -f /tmp/backup_user.sql
+   become_user: postgres
+   when: inventory_hostname == pci_dss_active_node
+
+ - name: restart patroni
+   service:
+    name: patroni.service
+    state: restarted
+
+ - name: Unconditionally reboot the machine with all defaults
+   reboot:
+

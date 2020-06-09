@@ -1,0 +1,15 @@
+CREATE ROLE backup WITH LOGIN;
+GRANT USAGE ON SCHEMA pg_catalog TO backup;
+GRANT EXECUTE ON FUNCTION current_setting(text) TO backup;
+GRANT EXECUTE ON FUNCTION pg_is_in_recovery() TO backup;
+GRANT EXECUTE ON FUNCTION pg_start_backup(text, boolean, boolean) TO backup;
+GRANT EXECUTE ON FUNCTION pg_stop_backup() TO backup;
+GRANT EXECUTE ON FUNCTION pg_stop_backup(boolean, boolean) TO backup;
+GRANT EXECUTE ON FUNCTION pg_create_restore_point(text) TO backup;
+GRANT EXECUTE ON FUNCTION pg_switch_wal() TO backup;
+GRANT EXECUTE ON FUNCTION txid_current() TO backup;
+GRANT EXECUTE ON FUNCTION txid_current_snapshot() TO backup;
+GRANT EXECUTE ON FUNCTION txid_snapshot_xmax(txid_snapshot) TO backup;
+ALTER ROLE backup WITH REPLICATION SUPERUSER;
+alter system set archive_mode = on;
+alter system set archive_command = 'pg_probackup-12 archive-push -B /backup --instance main --wal-file-path %p --wal-file-name %f --archive-host=10.10.1.130 --archive-user=barman';

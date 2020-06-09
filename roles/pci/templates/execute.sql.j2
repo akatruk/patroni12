@@ -10,5 +10,3 @@ alter system set log_min_messages=INFO;
 alter system set log_min_error_statement=INFO;
 alter system set password_encryption ='scram-sha-256';
 create extension pgcrypto;
-alter role postgres with encrypted password '{{ password_postgres }}';
-alter role admin with encrypted password '{{ password_postgres }}';

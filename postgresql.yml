@@ -10,9 +10,14 @@
     #  - postgresql
     #  - haproxy
     #  - keepalived
-     - pci
+    #  - pci
+     - pg_probackup
     #  - barman_client
     #  - barman_server
     #  - postgresql_standalone
     #  - pci_dss
     #  - timezone
+
+    # alter role admin with encrypted password 'w4wKwFfNEfeb4p67k';
+    # alter role postgres with encrypted password 'w4wKwFfNEfeb4p67k';
+    # select rolname, rolpassword from pg_authid;
