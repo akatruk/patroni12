@@ -1,0 +1,121 @@
+2020-06-12 00:41:55.515 MSK [14225] LOG:  starting PostgreSQL 12.1 on x86_64-apple-darwin19.0.0, compiled by Apple clang version 11.0.0 (clang-1100.0.33.12), 64-bit
+2020-06-12 00:41:55.516 MSK [14225] LOG:  listening on IPv6 address "::1", port 5432
+2020-06-12 00:41:55.516 MSK [14225] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2020-06-12 00:41:55.519 MSK [14225] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2020-06-12 00:41:55.530 MSK [14226] LOG:  database system was shut down at 2020-06-12 00:41:51 MSK
+2020-06-12 00:41:55.533 MSK [14225] LOG:  database system is ready to accept connections
+2020-06-12 00:42:42.226 MSK [14236] ERROR:  syntax error at or near "syster" at character 7
+2020-06-12 00:42:42.226 MSK [14236] STATEMENT:  alter syster set archive_mode = on;
+2020-06-12 00:57:56.846 MSK [14225] LOG:  received fast shutdown request
+2020-06-12 00:57:56.848 MSK [14225] LOG:  aborting any active transactions
+2020-06-12 00:57:56.850 MSK [14225] LOG:  background worker "logical replication launcher" (PID 14232) exited with exit code 1
+2020-06-12 00:57:56.851 MSK [14227] LOG:  shutting down
+2020-06-12 00:57:56.861 MSK [14225] LOG:  database system is shut down
+2020-06-12 00:57:57.013 MSK [14438] LOG:  starting PostgreSQL 12.1 on x86_64-apple-darwin19.0.0, compiled by Apple clang version 11.0.0 (clang-1100.0.33.12), 64-bit
+2020-06-12 00:57:57.014 MSK [14438] LOG:  listening on IPv6 address "::1", port 5432
+2020-06-12 00:57:57.014 MSK [14438] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2020-06-12 00:57:57.015 MSK [14438] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2020-06-12 00:57:57.027 MSK [14439] LOG:  database system was shut down at 2020-06-12 00:57:56 MSK
+2020-06-12 00:57:57.031 MSK [14438] LOG:  database system is ready to accept connections
+2020-06-13 00:18:09.587 MSK [14444] FATAL:  could not open directory "pg_wal/archive_status": No such file or directory
+2020-06-13 00:18:09.590 MSK [14438] LOG:  archiver process (PID 14444) exited with exit code 1
+2020-06-13 00:18:09.592 MSK [20302] FATAL:  could not open directory "pg_wal/archive_status": No such file or directory
+2020-06-13 00:18:09.593 MSK [14438] LOG:  archiver process (PID 20302) exited with exit code 1
+2020-06-13 00:18:22.291 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:22.969 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:22.969 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:23.648 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:23.648 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:24.329 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:24.329 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:25.015 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:25.015 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:25.694 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:25.694 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:26.378 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:26.378 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:27.062 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:27.062 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:27.744 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:27.744 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:28.428 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:28.428 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:29.114 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:29.114 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:29.806 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:29.806 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:30.499 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:30.499 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:31.193 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:31.193 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:31.887 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:31.887 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:32.573 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:32.573 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:33.003 MSK [14443] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2020-06-13 00:18:33.003 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:33.003 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:33.698 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:33.698 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:34.385 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:34.385 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:35.074 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:35.074 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:35.755 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:35.755 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:36.436 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:36.436 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:37.116 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:37.116 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:37.793 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:37.793 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:38.482 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:38.482 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:39.179 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:39.179 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:39.878 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:39.878 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:40.570 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:40.570 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:41.237 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:41.237 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:41.914 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:41.915 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:42.592 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:42.592 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:43.270 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:43.270 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:43.698 MSK [14443] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2020-06-13 00:18:43.699 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:43.699 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:44.374 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:44.374 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:45.053 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:45.053 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:45.732 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:45.732 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:46.403 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:46.403 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:47.076 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:47.076 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:47.757 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:47.757 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:48.430 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:48.430 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:49.108 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:49.108 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:49.791 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:49.792 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:50.476 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:50.476 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:51.163 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:51.163 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:51.840 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:51.840 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:52.524 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:52.524 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:53.202 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:53.202 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:53.881 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:53.881 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
+2020-06-13 00:18:54.307 MSK [14443] LOG:  using stale statistics instead of current ones because stats collector is not responding

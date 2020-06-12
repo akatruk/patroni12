@@ -1,17 +1,17 @@
 ---
 
- - name: add repo pg_probackup
-   shell: rpm -ivh https://repo.postgrespro.ru/pg_probackup/keys/pg_probackup-repo-centos.noarch.rpm
+#  - name: add repo pg_probackup
+#    shell: rpm -ivh https://repo.postgrespro.ru/pg_probackup/keys/pg_probackup-repo-centos.noarch.rpm
 
- - name: install pg_probackup
-   yum: name=pg_probackup-12 state=latest
+#  - name: install pg_probackup
+#    yum: name=pg_probackup-12 state=latest
 
- - name: install pg_probackup debuginfo
-   yum: name=pg_probackup-12-debuginfo state=latest
+#  - name: install pg_probackup debuginfo
+#    yum: name=pg_probackup-12-debuginfo state=latest
 
- - name: make user with password
-   user:
-    name: backup
+#  - name: make user with password
+#    user:
+#     name: backup
     # generate_ssh_key: yes
     # ssh_key_bits: 2048
     # ssh_key_file: .ssh/id_rsa

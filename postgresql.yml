@@ -6,11 +6,11 @@
 
   roles:
     #  - equipping
-    #  - etcd
-    #  - postgresql
-    #  - haproxy
-    #  - keepalived
-    #  - pci
+     - etcd
+     - postgresql
+     - haproxy
+     - keepalived
+     - pci
      - pg_probackup
     #  - barman_client
     #  - barman_server

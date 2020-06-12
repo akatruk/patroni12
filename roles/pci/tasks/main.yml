@@ -1,21 +1,63 @@
 ---
 
+- name: pause
+  pause:
+    seconds: 5
+
 - name: copy script
   template: 
     src: execute.sql.j2
     dest: /tmp/execute.sql
     backup: yes
-  when: inventory_hostname == pci_dss_active_node
+  when: inventory_hostname == cname1
 
 - name: exeute sql script
-  shell: psql postgres -U postgres -h localhost -p 5432 -a -q -f /tmp/execute.sql
+  shell: PGPASSWORD={{ password_postgres }} psql postgres -U postgres -h {{virtual_ip}} -p 5000 -a -q -f /tmp/execute.sql
   become_user: postgres
-  when: inventory_hostname == pci_dss_active_node
+  when: inventory_hostname == cname1
   register: output
 
 - name: script result
   debug:
     msg: "{{ output }}"
+
+- name: restart patroni
+  service:
+    name: patroni.service
+    state: restarted
+
+- name: pause
+  pause:
+    seconds: 5
+  
+- name: change password to SHA256
+  shell: PGPASSWORD={{ password_postgres }} psql postgres -U postgres -h {{virtual_ip}} -p 5000 -c "alter role postgres with encrypted password '{{ password_postgres }}';"
+  become_user: postgres
+  when: inventory_hostname == cname1
+  register: output
+
+- name: script result
+  debug:
+    msg: "{{ output }}"
+
+- name: change password to SHA256
+  shell: PGPASSWORD={{ password_postgres }} psql postgres -U postgres -h {{virtual_ip}} -p 5000 -c "alter role admin with encrypted password '{{ password_postgres }}';"
+  become_user: postgres
+  when: inventory_hostname == cname1
+  register: output
+
+- name: script result
+  debug:
+    msg: "{{ output }}"
+
+- name: restart patroni
+  service:
+    name: patroni.service
+    state: restarted
+
+- name: pause
+  pause:
+    seconds: 5
 
 - name: find and replcace in /var/lib/pgsql/12/data/patronictl/pg_hba.conf
   lineinfile:
@@ -29,23 +71,38 @@
     regexp: '^(.*)host all all 0.0.0.0/0 md5(.*)$' 
     line: 'host all all 0.0.0.0/0 scram-sha-256'
 
+- name: 10.11.250.0/24
+  lineinfile:
+    path: /var/lib/pgsql/12/data/patronictl/pg_hba.conf
+    line: host    all             all             10.11.250.0/24          scram-sha-256
+    create: yes
+
+- name: 192.168.13.0/24
+  lineinfile:
+    path: /var/lib/pgsql/12/data/patronictl/pg_hba.conf
+    line: host    all             all             192.168.13.0/24          scram-sha-256
+    create: yes
+
+- name: 192.168.160.0/24
+  lineinfile:
+    path: /var/lib/pgsql/12/data/patronictl/pg_hba.conf
+    line: host    all             all             192.168.160.0/24          scram-sha-256
+    create: yes
+
+- name: 10.11.3.11/32
+  lineinfile:
+    path: /var/lib/pgsql/12/data/patronictl/pg_hba.conf
+    line: host    all             all             10.11.3.11/32          scram-sha-256
+    create: yes
+
 - name: restart patroni
   service:
     name: patroni.service
     state: restarted
-  
-# - name: add hosts to pg_hba.conf
 
-# - name: change password to SHA256
-#   shell: PGPASSWORD={{ password_postgres }} psql postgres -U postgres -h {{virtual_ip}} -p 5000 -c "alter role postgres with encrypted password '{{ password_postgres }}';"
-#   become_user: postgres
-#   when: inventory_hostname == pci_dss_active_node
-
-# - name: change password to SHA256
-#   shell: PGPASSWORD={{ password_postgres }} psql postgres -U postgres -h {{virtual_ip}} -p 5000 -c "alter role admin with encrypted password '{{ password_postgres }}';"
-#   become_user: postgres
-#   when: inventory_hostname == pci_dss_active_node
+- name: pause
+  pause:
+    seconds: 5
 
 # - name: Unconditionally reboot the machine with all defaults
 #   reboot:
-
