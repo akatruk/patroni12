@@ -56,7 +56,7 @@ postgresql:
 {% if patroni_custom_conf is defined %}
   custom_conf: {{ patroni_custom_conf }}
 {% endif %}
-  data_dir: /var/lib/pgsql/12/data/patronictl/
+  data_dir: /var/lib/pgsql/12/data/
   bin_dir: /usr/pgsql-12/bin
   pgpass: /tmp/pgpass0
   authentication:
@@ -67,7 +67,7 @@ postgresql:
       username: postgres
       password: {{password_postgres}}
   parameters:
-    unix_socket_directories: '.'
+    unix_socket_directories: '/run/postgresql/'
 tags:
     nofailover: false
     noloadbalance: false
