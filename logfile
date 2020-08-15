@@ -119,3 +119,13 @@
 2020-06-13 00:18:53.881 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
 2020-06-13 00:18:53.881 MSK [14445] LOG:  could not open temporary statistics file "pg_stat_tmp/global.tmp": No such file or directory
 2020-06-13 00:18:54.307 MSK [14443] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2020-06-13 00:19:09.598 MSK [14438] LOG:  could not open file "postmaster.pid": No such file or directory
+2020-06-13 00:19:09.598 MSK [14438] LOG:  performing immediate shutdown because data directory lock file is invalid
+2020-06-13 00:19:09.598 MSK [14438] LOG:  received immediate shutdown request
+2020-06-13 00:19:09.598 MSK [14438] LOG:  could not open file "postmaster.pid": No such file or directory
+2020-06-13 00:19:09.598 MSK [14445] LOG:  could not open temporary statistics file "pg_stat/global.tmp": No such file or directory
+2020-06-13 00:19:09.599 MSK [14443] WARNING:  terminating connection because of crash of another server process
+2020-06-13 00:19:09.599 MSK [14443] DETAIL:  The postmaster has commanded this server process to roll back the current transaction and exit, because another server process exited abnormally and possibly corrupted shared memory.
+2020-06-13 00:19:09.599 MSK [14443] HINT:  In a moment you should be able to reconnect to the database and repeat your command.
+2020-06-13 00:19:09.600 MSK [14438] LOG:  archiver process (PID 20481) exited with exit code 1
+2020-06-13 00:19:09.602 MSK [14438] LOG:  database system is shut down
