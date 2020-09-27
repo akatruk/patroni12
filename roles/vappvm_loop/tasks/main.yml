@@ -5,12 +5,13 @@
 - name: deploy vApp "{{ vm_name }}" and VM "{{ vm_name }}"
   vcd_vapp: 
     vm_name: "{{ item }}"
-    vapp_name: "{{ item }}"
+    vapp: "{{ item }}"
     template_name: "{{ source_template_name }}"
     catalog_name: "{{ source_catalog_name }}"
     vdc: "LifeStyle-Platform"
     power_on: False
-    ip_allocation_mode: "POOL"
+    ip_allocation_mode: "MANUAL"
+    ip_address: "{{ ip_address_vcd }}"
     storage_profile: "{{ storage_profile }}"
     network_adapter_type: "VMXNET3"
     state: "present"

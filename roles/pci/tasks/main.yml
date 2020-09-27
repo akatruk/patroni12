@@ -55,43 +55,67 @@
     name: patroni.service
     state: restarted
 
-- name: pause
+- name: pause 10 seconds
   pause:
-    seconds: 5
+    seconds: 10
 
-- name: find and replcace in /var/lib/pgsql/12/data/patronictl/pg_hba.conf
+- name: find and replcace in /var/lib/pgsql/12/data/pg_hba.conf
   lineinfile:
-    path: /var/lib/pgsql/12/data/patronictl/pg_hba.conf
-    regexp: '^(.*)host replication postgres 10.10.1.0/24 md5(.*)$'
-    line: 'host replication postgres 10.10.1.0/24 scram-sha-256'
+    path: /var/lib/pgsql/12/data/pg_hba.conf
+    regexp: '^(.*)host replication postgres 10.10.11.0/24 md5(.*)$'
+    line: 'host replication postgres 10.10.11.0/24 scram-sha-256'
 
-- name: find and replcace in /var/lib/pgsql/12/data/patronictl/pg_hba.conf
+- name: find and replcace in /var/lib/pgsql/12/data/pg_hba.conf
   lineinfile:
-    path: /var/lib/pgsql/12/data/patronictl/pg_hba.conf
+    path: /var/lib/pgsql/12/data/pg_hba.conf
     regexp: '^(.*)host all all 0.0.0.0/0 md5(.*)$' 
     line: 'host all all 0.0.0.0/0 scram-sha-256'
 
+- name: access from k8s-prod
+  lineinfile:
+    path: /var/lib/pgsql/12/data/pg_hba.conf
+    line: '# access from k8s-prod'
+    create: yes
+
 - name: 10.11.250.0/24
   lineinfile:
-    path: /var/lib/pgsql/12/data/patronictl/pg_hba.conf
+    path: /var/lib/pgsql/12/data/pg_hba.conf
     line: host    all             all             10.11.250.0/24          scram-sha-256
     create: yes
 
+- name: access from lsp office network
+  lineinfile:
+    path: /var/lib/pgsql/12/data/pg_hba.conf
+    line: '# access from lsp office network'
+    create: yes
+  
 - name: 192.168.13.0/24
   lineinfile:
-    path: /var/lib/pgsql/12/data/patronictl/pg_hba.conf
+    path: /var/lib/pgsql/12/data/pg_hba.conf
     line: host    all             all             192.168.13.0/24          scram-sha-256
     create: yes
 
+- name: access from vpn network
+  lineinfile:
+    path: /var/lib/pgsql/12/data/pg_hba.conf
+    line: '# access from vpn network'
+    create: yes
+  
 - name: 192.168.160.0/24
   lineinfile:
-    path: /var/lib/pgsql/12/data/patronictl/pg_hba.conf
+    path: /var/lib/pgsql/12/data/pg_hba.conf
     line: host    all             all             192.168.160.0/24          scram-sha-256
+    create: yes
+
+- name: access from adminer
+  lineinfile:
+    path: /var/lib/pgsql/12/data/pg_hba.conf
+    line: '# access from adminer'
     create: yes
 
 - name: 10.11.3.11/32
   lineinfile:
-    path: /var/lib/pgsql/12/data/patronictl/pg_hba.conf
+    path: /var/lib/pgsql/12/data/pg_hba.conf
     line: host    all             all             10.11.3.11/32          scram-sha-256
     create: yes
 
@@ -103,6 +127,3 @@
 - name: pause
   pause:
     seconds: 5
-
-# - name: Unconditionally reboot the machine with all defaults
-#   reboot:

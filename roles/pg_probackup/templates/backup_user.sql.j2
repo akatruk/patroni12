@@ -1,3 +1,0 @@
-ALTER ROLE backup WITH REPLICATION SUPERUSER;
-alter system set archive_mode = on;
-alter system set archive_command = 'pg_probackup-12 archive-push -B /backup --instance main --wal-file-path %p --wal-file-name %f --archive-host=10.10.1.130 --archive-user=barman';

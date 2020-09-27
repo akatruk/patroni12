@@ -1,23 +1,17 @@
 ---
 
 - name: Install PostgreSQL patroni
-  hosts: patroni
+  hosts: patroni3
   become: yes
 
   roles:
-    #  - equipping
-     - etcd
-     - postgresql
-     - haproxy
-     - keepalived
-     - pci
-     - pg_probackup
-    #  - barman_client
-    #  - barman_server
+#      - equipping
+#      - etcd
+#      - postgresql
+#      - haproxy
+#      - keepalived
+#     - pci
     #  - postgresql_standalone
     #  - pci_dss
-    #  - timezone
-
-    # alter role admin with encrypted password 'w4wKwFfNEfeb4p67k';
-    # alter role postgres with encrypted password 'w4wKwFfNEfeb4p67k';
-    # select rolname, rolpassword from pg_authid;
+      - timezone
+    

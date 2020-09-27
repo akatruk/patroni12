@@ -43,3 +43,13 @@ M1CRMPLDB04 ansible_ssh_host=10.10.11.106
 M1BKPPLAS02 ansible_ssh_host=10.10.1.132
 M1BKPPLAS04 ansible_ssh_host=10.10.1.134
 M1BKPPLAS05 ansible_ssh_host=10.10.1.135
+
+[patroni2]
+M1K8SPLDB10 ansible_ssh_host=10.10.11.11
+M1K8SPLDB11 ansible_ssh_host=10.10.11.12
+M1K8SPLDB12 ansible_ssh_host=10.10.11.13
+
+[patroni3]
+M1K8SPLPM01 ansible_ssh_host=10.10.11.16
+M1K8SPLPM02 ansible_ssh_host=10.10.11.17
+M1K8SPLPM03 ansible_ssh_host=10.10.11.18

@@ -35,7 +35,7 @@
 
 - name: логирование событий
   blockinfile:
-     path: /var/lib/pgsql/12/data/patronictl/postgresql.conf
+     path: /var/lib/pgsql/12/data/postgresql.conf
      block: |
         log_destination=syslog
         logging_collector=off
@@ -91,7 +91,7 @@ alter user lsp_bank_history with password 'GTdnCk/jv++hyZ0dFieuoBAhl3AzvSOcCvNk1
 alter user lsp_banking with password 'HBHcG32ypku5VCkn9qUovFQg2sXWaXeYlqAhIXH6K9A=';
 alter user lsp_banking_gateway with password 'XtmGoaiQpnbY3ZdXYJrJnQoV2kqOcZZiQ96UFRshEjI=';
 alter user lsp_config with password '1ApKPDsKPcV11u2G4/yZNUz+ma5X4nuIzNzzsAIlwfs=';
-alter user lsp_message_processing with password 'AqiOvgSZgjnfd9jkrwosTD8zqVgV1Dtg6YkF8asxWx8=';
+alter user lsp_message_processing with lsp_digitalbazaar 'AqiOvgSZgjnfd9jkrwosTD8zqVgV1Dtg6YkF8asxWx8=';
 alter user lsp_notify with password 'EbBGnC2tvqTvm3/slPCBBd09h74kR/bq/NhcHoLK3rM=';
 alter user lsp_orders with password '8UoopuFiCrsNXKqv8UrMql7nK4eHWjtKxBWbnTkB0rM=';
 alter user lsp_payment with password 'DGlPHb9rTPnbGO5W8EPOhJjefAQNNEcBWPh53Fu95MA=';
@@ -99,4 +99,4 @@ alter user lsp_push_gateway with password 'MyoT82grHNNjJkm51iwwBAZpW3noeYD724V6a
 alter user lsp_service_manager with password '6iXum70RJv8Q6foaGJuKFwOsjgC6Xy3kcTLld5SnyTA=';
 alter user lsp_sms_gateway with password 'mg2+H+K3nW4dLCUZ2bTz3N4zFbvzdPpsEKkhkNHpHUw=';
 alter user lsp_user with password 'jgLUSFteS17PJNWRlKgWEuCp8IXMDpmyZdXScVMmI+Y=';
-|M1K8SPLDB05|alter user lsp_yclients with password 'dUWmYe2Ulxlen4JKm5Eqfyn3WsXCxTiXRNuSYpXGCyA=';
+|M1K8SPLDB05|alter user lsp_digitalbazaar with password 'N1j2YCpyWWoYk35hjm4jzC2ROsOPRvvPHljF9112Fnc=';
