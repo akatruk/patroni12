@@ -6,12 +6,12 @@
 
   roles:
 #      - equipping
-#      - etcd
-#      - postgresql
-#      - haproxy
-#      - keepalived
+     - etcd
+     - postgresql
+     - haproxy
+     - keepalived
 #     - pci
     #  - postgresql_standalone
     #  - pci_dss
-      - timezone
+      # - timezone
     

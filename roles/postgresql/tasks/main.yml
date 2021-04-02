@@ -1,5 +1,20 @@
 ---
 
+
+
+  - name: open firewall 2379, 2380, 5000, 2380, 5432
+    shell: firewall-cmd --permanent --add-port={{item}}/tcp --zone=public
+    with_items:
+    - 2379
+    - 2380
+    - 5000
+    - 2380
+    - 8008
+    - 5432
+
+  - name: reload firewall
+    shell: firewall-cmd --reload
+
   - name: Install package with multiple repos enabled
     yum:
       name: epel-release

@@ -1,5 +1,16 @@
 ---
 # tasks file for etcd
+- name: Install firewalld
+  yum: 
+    name: firewalld
+    state: latest
+
+- name: enabled firewall
+  shell: systemctl enable firewalld
+
+- name: start firewall
+  shell: systemctl start firewalld
+
 - name: open firewall 2379, 2380, 5000, 2380, 5432
   shell: firewall-cmd --permanent --add-port={{item}}/tcp
   with_items:
@@ -29,10 +40,8 @@
     dest: /etc/yum.repos.d/myrepo.repo
     backup: yes
 
-- name: Install etcd
-  yum: 
-    name: etcd
-    state: latest
+- name: install yum
+  shell: yum -y install http://mirror.centos.org/centos/7/extras/x86_64/Packages/etcd-3.3.11-2.el7.centos.x86_64.rpm
 
 - name: put custom config
   template: 
